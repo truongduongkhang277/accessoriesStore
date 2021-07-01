@@ -22,9 +22,9 @@ public class Category implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int category_id;
+	private Long category_id;
 	
-	@Column(name="category_name", length = 100, nullable = false, columnDefinition = "varchar(100) not null")
+	@Column(name="category_name", length = 100, nullable = false, columnDefinition = "nvarchar(100) not null")
 	private String category_name;
 	
 }

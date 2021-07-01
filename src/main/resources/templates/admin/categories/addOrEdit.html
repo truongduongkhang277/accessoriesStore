@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Title</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
+  
+        <meta charset="UTF-8"/>       
+          
+        <title >New Category </title>        
+          
+        <meta http-equiv ="Content-Type" content ="text/html; charset=UTF-8"/>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     
         <!-- Bootstrap CSS -->
@@ -20,27 +24,31 @@
             </header>
             <section class="row">
                 <div class="col-6 offset-3 mt-4">
-                    <form method="post">
+                    <form th:action="@{/admin/categories/saveOrUpdate}" method="post" th:object="${category}">
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="text-center">Add New Category</h2>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="categoryId">Category Id:</label>
-                                    <input type="text" class="form-control" name="categoryId" id="categoryId" aria-describedby="categoryIdHid" placeholder="Category Id">
-                                    <small id="categoryIdHid" class="form-text text-muted">Category Id is required</small>
+                                    <label for="category_id">Category Id:</label>
+                                    <input type="hidden" th:field="*{is_edit}">
+                                    <input type="text" class="form-control" th:field="*{category_id}" aria-describedby="category_id_Hid" placeholder="Category Id" readonly>
+                                    <small th:if="${#fields.hasErrors('category_id')}" id="category_id_Hid" class="form-text text-muted">Category Id is required</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="categoryName">Category Name</label>
-                                    <input type="text" class="form-control" name="categoryName" id="categoryName" aria-describedby="categoryNameHid" placeholder="Category Name">
-                                    <small id="categoryNameHid" class="form-text text-muted">Category name is required</small>
+                                    <label for="category_name">Category Name</label>
+                                    <input type="text" class="form-control" th:field="*{category_name}" aria-describedby="category_name_Hid" placeholder="Category Name">
+                                    <small th:if="${#fields.hasErrors('category_name')}" id="category_name_Hid" class="form-text text-muted">Category name is required</small>
                                 </div>
                             </div>
                             <div class="card-footer text-muted">
                                 <button type="reset" class="btn btn-secondary">Reset</button>
-                                <button class="btn btn-success">List Categories</button>
-                                <button class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                                <a th:href="@{/admin/categories}" class="btn btn-success">List Categories</a>
+                                <button class="btn btn-primary"><i class="fas fa-save"></i> 
+                                    <span th:if="${category.is_edit}">Update</span>
+                                    <span th:if="${! category.is_edit}">Save</span>
+                                </button>
                             </div>
                         </div>
                     </form>

@@ -27,7 +27,7 @@ public class Product implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int product_id;
 
-	@Column(columnDefinition = "varchar(150) not null")
+	@Column(columnDefinition = "nvarchar(150) not null")
 	private String product_name;
 
 	@Column(nullable = false)
