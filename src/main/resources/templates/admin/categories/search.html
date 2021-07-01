@@ -23,7 +23,7 @@
               <h2>List of Categories</h2>
             </div>
             <div class="card-body">
-                <div th:if="@{@{message != null}}" class="alert alert-primary" role="alert">
+                <div th:if="${message != null}" class="alert alert-primary" role="alert">
                     <i>[[${mesage}]]</i>
                 </div>
                 <div class="row mt-2 mb-2">
@@ -31,8 +31,8 @@
                         <form th:action="@{/admin/categories/search}">
                             <div class="form-inline float-left">
                               <label for="category_name">Category Name: </label>
-                              <input type="text" class="form-control ml-4" name="category_name" id="category_name" aria-describedby="helpId" placeholder="Category Name">
-                                <button class="btn btn-primary ml-4">Search</button>
+                              <input type="text" class="form-control" name="category_name" id="category_name" aria-describedby="helpId" placeholder="Category Name">
+                                <button class="btn btn-primary">Search</button>
                             </div>
                         </form>
                         <div class="float-right">
