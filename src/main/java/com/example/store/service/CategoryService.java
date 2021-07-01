@@ -59,4 +59,6 @@ public interface CategoryService {
 
 	List<Category> findByNameContaining(String category_name);
 
+	Page<Category> findByNameContaining(String category_name, Pageable pageable);
+
 }
