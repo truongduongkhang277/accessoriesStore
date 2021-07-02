@@ -57,8 +57,8 @@ public interface CategoryService {
 
 	<S extends Category> S save(S entity);
 
-	List<Category> findByNameContaining(String category_name);
+	List<Category> findByCategorynameContaining(String categoryname);
 
-	Page<Category> findByNameContaining(String category_name, Pageable pageable);
+	Page<Category> findByCategorynameContaining(String categoryname, Pageable pageable);
 
 }

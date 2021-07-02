@@ -28,10 +28,10 @@
                 </div>
                 <div class="row mt-2 mb-2">
                   <div class="col">
-                      <form th:action="@{/admin/categories/searchpaginated}">
+                      <form th:action="@{/admin/categories/searchPaginated}">
                           <div class="form-inline float-left">
-                            <label for="category_name">Category Name: </label>
-                            <input type="text" class="form-control ml-10" name="category_name" id="category_name" aria-describedby="helpId" placeholder="Category Name">
+                            <label for="categoryname">Category Name: </label>
+                            <input type="text" class="form-control ml-10" name="categoryname" id="categoryname" aria-describedby="helpId" placeholder="Category Name">
                               <button class="btn btn-primary ml-10">Search</button>
                           </div>
                       </form>
@@ -43,7 +43,7 @@
               <div class="row" th:if="${! categoryPage.hasContent()}">
                 <div class="col">
                   <div class="alert alert-danger" role="alert">
-                    <strong>No category found</strong>
+                    <strong>No categories found</strong>
                   </div>
                 </div>
               </div>
@@ -58,7 +58,7 @@
                 <tbody>
                   <tr th:each="category, iStat : ${categoryPage.content}">
                     <td scope="row">[[${category.category_id}]]</td>
-                    <td th:text="${category.category_name}"></td>
+                    <td th:text="${category.categoryname}"></td>
                     <td>
                       <a th:href="@{'/admin/categories/view' + ${category.category_id}}" class="btn btn-outline-info"><i class="fas fa-info"></i></a>
                       <a th:href="@{'/admin/categories/edit/' +${category.category_id}}" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
@@ -69,30 +69,44 @@
               </table>
             </div>
             <div class="card-footer text-muted">
+              <!-- submit hoạt động nhưng trang chưa reload theo value
               <div class="form-inline float-left">
                 <label for="size">Page size: </label>
-                <select name="size" id="size" class="form-control" onchange="this.form.submit()">
-                  <option th:selected="${}categoryPage.size == 5" value="5">5</option>
-                  <option th:selected="${}categoryPage.size == 10" value="10">10</option>
-                  <option th:selected="${}categoryPage.size == 15" value="15">15</option>
-                  <option th:selected="${}categoryPage.size == 20" value="20">20</option>
-                  <option th:selected="${}categoryPage.size == 30" value="30">30</option>
+                <select name="size" id="size" class="form-control" onchange="this.submit()">
+                  <option th:selected="${categoryPage.size == 5}" value="5">5</option>
+                  <option th:selected="${categoryPage.size == 10}" value="10">10</option>
+                  <option th:selected="${categoryPage.size == 15}" value="15">15</option>
+                  <option th:selected="${categoryPage.size == 20}" value="20">20</option>
+                  <option th:selected="${categoryPage.size == 30}" value="30">30</option>
                 </select>
-              </div>
+              </div> -->
               <nav aria-label="Page navigation" th:if="${categoryPage.totalPages > 0}">
                 <ul class="pagination justify-content-center">
                   <li th:class="${ 1 == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
-                    <a th:href="@{/admin/categories/searchpaginated(category_name=${category_name}, size=${categoryPage.size}, page=${1})}"
+                    <a th:href="@{/admin/categories/searchPaginated( size=${categoryPage.size}, page=${1})}"
                     class="page-link" > First </a>
                   </li>
-                  <li class="page-item active" th:each="pageNumber : ${pageNumbers}" th:if="${categoryPage.totalPages > 1}" th:class="${pageNumber == categoryPage.number + 1} ? 'page-item active : 'page-item'" >
-                    <a th:href="@{/admin/categories/searchpaginated(category_name=${category_name}, size=${categoryPage.size}, page=${pageNumber})}"
+                  <li class="page-item active" th:each="pageNumber : ${pageNumbers}" th:if="${categoryPage.totalPages > 1}" th:class="${pageNumber == categoryPage.number + 1} ? 'page-item active' : 'page-item'" >
+                    <a th:href="@{/admin/categories/searchPaginated( size=${categoryPage.size}, page=${pageNumber})}"
                     class="page-link" th:text="${pageNumber}"> </a>
                   </li>
                   <li th:class="${ categoryPage.totalPages == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
-                    <a th:href="@{/admin/categories/searchpaginated(category_name=${category_name}, size=${categoryPage.size}, page=${categoryPage.totalPages})}"
+                    <a th:href="@{/admin/categories/searchPaginated( size=${categoryPage.size}, page=${categoryPage.totalPages})}"
                     class="page-link" > Last </a>
                   </li>
+                  <!-- sắp xếp theo cate_name
+                  <li th:class="${ 1 == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
+                    <a th:href="@{/admin/categories/searchPaginated(categoryname=${categoryname}, size=${categoryPage.size}, page=${1})}"
+                    class="page-link" > First </a>
+                  </li>
+                  <li class="page-item active" th:each="pageNumber : ${pageNumbers}" th:if="${categoryPage.totalPages > 1}" th:class="${pageNumber == categoryPage.number + 1} ? 'page-item active' : 'page-item'" >
+                    <a th:href="@{/admin/categories/searchPaginated(categoryname=${categoryname}, size=${categoryPage.size}, page=${pageNumber})}"
+                    class="page-link" th:text="${pageNumber}"> </a>
+                  </li>
+                  <li th:class="${ categoryPage.totalPages == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
+                    <a th:href="@{/admin/categories/searchPaginated(categoryname=${categoryname}, size=${categoryPage.size}, page=${categoryPage.totalPages})}"
+                    class="page-link" > Last </a>
+                  </li> -->
                 </ul>
               </nav>
             </div>

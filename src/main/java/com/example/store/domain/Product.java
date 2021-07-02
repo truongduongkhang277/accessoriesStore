@@ -2,12 +2,17 @@ package com.example.store.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,13 +33,13 @@ public class Product implements Serializable{
 	private int product_id;
 
 	@Column(columnDefinition = "nvarchar(150) not null")
-	private String product_name;
+	private String productname;
 
 	@Column(nullable = false)
 	private int quantity;
 
 	@Column(nullable = false)
-	private double unit_price;
+	private double unitprice;
 
 	@Column(length = 255)
 	private String image;
@@ -46,12 +51,16 @@ public class Product implements Serializable{
 	private double discount;
 
 	@Temporal(TemporalType.DATE)
-	private Date entered_date;
+	private Date entereddate;
 
 	@Column(nullable = false)
 	private short status;
 
-	@Column(nullable = false)
-	private int category_id;
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 
+	// khi xóa product, detail sẽ được xóa
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private Set<OrderDetail> orderDetails;
 }

@@ -17,6 +17,6 @@ public class OrderDetailDto {
 
 	private int quantity;
 
-	private double unit_price;
+	private double unitprice;
 
 }

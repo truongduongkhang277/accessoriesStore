@@ -99,14 +99,14 @@ public class CategoryController {
 
 	@GetMapping("search")
 	public String search(ModelMap model,
-			@RequestParam(name = "category_name", required = false) String category_name) {
+			@RequestParam(name = "categoryname", required = false) String categoryname) {
 		
 		List<Category> list = null;
 		
 		// kiểm tra xem có dữ liệu truyền vào từ người dùng
-		if(StringUtils.hasText(category_name)) {
+		if(StringUtils.hasText(categoryname)) {
 			// truyền dữ liệu vào danh sách bằng findByNameContaining
-			list = categoryService.findByNameContaining(category_name);
+			list = categoryService.findByCategorynameContaining(categoryname);
 		} else {
 			// nếu không thì hiển thị tất cả
 			list = categoryService.findAll();
@@ -117,11 +117,12 @@ public class CategoryController {
 		return "admin/categories/search"; 
 	}
 	
-	@GetMapping("search/paginated")
+	@GetMapping("searchPaginated")
 	public String search(ModelMap model,
-			@RequestParam(name = "category_name", required = false) String category_name,
+			@RequestParam(name = "categoryname", required = false) String categoryname,
 			@RequestParam(name = "page") Optional<Integer> page,
 			@RequestParam(name = "size") Optional<Integer> size) {
+		
 		// mặc định trang đầu là 1
 		int currentPage = page.orElse(1);
 		
@@ -129,14 +130,17 @@ public class CategoryController {
 		int pageSize = size.orElse(5);
 		
 		// tạo đối tượng chứ trang, số lượng và sắp xếp theo thuộc tính gì
-		Pageable pageable = PageRequest.of(currentPage, pageSize, Sort.by("category_name"));
+		// mặc định sắp xếp theo cate_id
+		Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
+		// sắp xếp theo cate_name
+		//Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("categoryname"));
 		Page<Category> resultPage = null; 
 		
 		// kiểm tra xem có dữ liệu truyền 
-		if(StringUtils.hasText(category_name)) {
+		if(StringUtils.hasText(categoryname)) {
 			// truyền dữ liệu vào danh sách bằng findByNameContaining
-			resultPage = categoryService.findByNameContaining(category_name, pageable);
-			model.addAttribute("category_name", category_name);
+			resultPage = categoryService.findByCategorynameContaining(categoryname, pageable);
+			model.addAttribute("categoryname", categoryname);
 		} else {
 			// nếu không thì hiển thị tất cả
 			resultPage = categoryService.findAll(pageable);
@@ -167,7 +171,7 @@ public class CategoryController {
 		
 		model.addAttribute("categoryPage", resultPage);
 		
-		return "admin/categories/searchpaginated"; 
+		return "admin/categories/searchPaginated"; 
 	}
 
 	@GetMapping("delete/{category_id}")

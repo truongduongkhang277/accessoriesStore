@@ -13,7 +13,7 @@ public class OrderDto {
 
 	private int order_id;
 
-	private Date order_date;
+	private Date orderdate;
 
 	private int customer_id;
 

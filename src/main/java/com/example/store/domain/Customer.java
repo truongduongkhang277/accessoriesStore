@@ -3,12 +3,15 @@ package com.example.store.domain;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,7 +32,7 @@ public class Customer implements Serializable {
 	private int customer_id;
 
 	@Column(columnDefinition = "nvarchar(200) not null")
-	private String customer_name;
+	private String customername;
 
 	@Column(columnDefinition = "varchar(200) not null")
 	private String email;
@@ -41,9 +44,13 @@ public class Customer implements Serializable {
 	private String phone;
 
 	@Temporal(TemporalType.DATE)
-	private Date registered_date;
+	private Date registereddate;
 
 	@Column(nullable = false)
 	private short status;
 
+	// xóa kh thì hóa đơn được xóa theo
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	private Set<Order> orders;
+	
 }

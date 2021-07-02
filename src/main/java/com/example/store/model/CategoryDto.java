@@ -20,7 +20,7 @@ public class CategoryDto implements Serializable{
 
 	@NotEmpty
 	@Length(min = 5)
-	private String category_name;
+	private String categoryname;
 
 	private boolean is_edit = false;
 

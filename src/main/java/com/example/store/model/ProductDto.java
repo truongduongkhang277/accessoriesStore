@@ -13,11 +13,11 @@ public class ProductDto {
 
 	private int product_id;
 
-	private String product_name;
+	private String productname;
 
 	private int quantity;
 
-	private double unit_price;
+	private double unitprice;
 
 	private String image;
 
@@ -25,7 +25,7 @@ public class ProductDto {
 
 	private double discount;
 
-	private Date entered_date;
+	private Date entereddate;
 
 	private short status;
 

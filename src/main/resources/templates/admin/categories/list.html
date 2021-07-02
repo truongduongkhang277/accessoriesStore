@@ -37,7 +37,7 @@
                 <tbody>
                   <tr th:each="category : ${categories}">
                     <td scope="row">[[${category.category_id}]]</td>
-                    <td th:text="${category.category_name}"></td>
+                    <td th:text="${category.categoryname}"></td>
                     <td>
                       <a th:href="@{'/admin/categories/view' + ${category.category_id}}" class="btn btn-outline-info"><i class="fas fa-info"></i></a>
                       <a th:href="@{'/admin/categories/edit/' +${category.category_id}}" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>

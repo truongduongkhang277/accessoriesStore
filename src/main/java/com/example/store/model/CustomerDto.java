@@ -13,7 +13,7 @@ public class CustomerDto {
 
 	private int customer_id;
 
-	private String customer_name;
+	private String customername;
 
 	private String email;
 
@@ -21,7 +21,7 @@ public class CustomerDto {
 
 	private String phone;
 
-	private Date registered_date;
+	private Date registereddate;
 
 	private short status;
 

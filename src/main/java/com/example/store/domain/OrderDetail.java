@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -25,15 +27,17 @@ public class OrderDetail implements Serializable{
 	private int order_detail_id;
 
 	@Column(nullable = false)
-	private int order_id;
-
-	@Column(nullable = false)
-	private int product_id;
-
-	@Column(nullable = false)
 	private int quantity;
 
 	@Column(nullable = false)
-	private double unit_price;
+	private double unitprice;
 
+	@ManyToOne
+	@JoinColumn(name ="product_id")
+	private Product product;
+	
+	@ManyToOne
+	@JoinColumn(name="order_id")
+	private Order order;
+	
 }
