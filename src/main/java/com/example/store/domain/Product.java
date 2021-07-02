@@ -30,7 +30,7 @@ public class Product implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int product_id;
+	private Long product_id;
 
 	@Column(columnDefinition = "nvarchar(150) not null")
 	private String productname;

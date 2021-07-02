@@ -2,6 +2,8 @@ package com.example.store.model;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductDto {
 
-	private int product_id;
+	private Long product_id;
 
 	private String productname;
 
@@ -21,6 +23,8 @@ public class ProductDto {
 
 	private String image;
 
+	private MultipartFile imageFile;
+	
 	private String description;
 
 	private double discount;
@@ -29,6 +33,16 @@ public class ProductDto {
 
 	private short status;
 
-	private int category_id;
+	private Long category_id;
+	
+	private boolean is_edit;
+
+	public boolean isIs_edit() {
+		return is_edit;
+	}
+
+	public void setIs_edit(boolean is_edit) {
+		this.is_edit = is_edit;
+	}
 
 }
