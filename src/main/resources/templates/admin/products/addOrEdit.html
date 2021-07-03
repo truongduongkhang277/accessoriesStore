@@ -10,12 +10,13 @@ layout:decorate="~{admin/dashboardLayout.html}" >
                 <form action="/admin/products/saveOrUpdate" method="post" enctype="multipart/form-data" th:object="${product}">
                     <div class="card">
                         <div class="card-header">
-                            <h2 class="text-center">Add New Product</h2>
+                            <h2 class="text-center" th:text="${product.is_edit ?'Edit Product' : 'Add New Product'}"></h2>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-7">
-                                    <div class="form-group">
+                                    <input type="hidden" th:field="*{is_edit}">
+                                    <div class="form-group" th:if="${product.is_edit}">
                                         <label for="product_id">Product Id</label>
                                         <input type="text" class="form-control" name="product_id" id="product_id" th:field="*{product_id}"
                                         aria-describedby="product_id_Hid" placeholder="Product Id" readonly>
@@ -60,7 +61,8 @@ layout:decorate="~{admin/dashboardLayout.html}" >
                                             }
                                         }
                                     </script>
-                                    <img id="image" src="/images/image-default.jpg" width="60%" 
+                                    <img id="image" th:src="${product.image != null ? '/admin/products/images/' + product.image : '/images/image-default.jpg'}" 
+                                    src="/images/image-default.jpg" width="75%" 
                                     class="img-fluid" alt="">
                                     <div class="form-group">
                                         <label for="imageFile">Image File</label>
@@ -95,9 +97,10 @@ layout:decorate="~{admin/dashboardLayout.html}" >
                             </div>
                         </div>
                         <div class="card-footer text-muted">
-                            <a type="reset" class="btn btn-secondary">Reset</a>
-                            <a class="btn btn-success">List Categories</a>
-                            <button class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                            <a th:href="@{/admin/products/add}" class="btn btn-success">New</a>
+                            <button class="btn btn-primary" th:text="${product.is_edit ?'Update Product' : 'Save Product'}"> </button>                            
+                            <a th:if="${product.is_edit}" th:href="@{'/admin/products/delete/' + ${product.product_id}}" 
+                            class="btn btn-danger float-right ">Delete</a>
                         </div>
                     </div>
                 </form>
