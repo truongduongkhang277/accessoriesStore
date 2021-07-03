@@ -3,19 +3,37 @@ package com.example.store.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.example.store.domain.Category;
 import com.example.store.domain.Product;
+import com.example.store.repository.CategoryRepository;
 import com.example.store.repository.ProductRepository;
 import com.example.store.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 
-	private ProductRepository productRepository;
+	ProductRepository productRepository;
+
+	public ProductServiceImpl(ProductRepository productRepository) {
+		super();
+		this.productRepository = productRepository;
+	}
+	
+	@Override
+	public <S extends Product> S save(S entity) {
+		return productRepository.save(entity);
+	}
+
+	@Override
+	public <S extends Product> Optional<S> findOne(Example<S> example) {
+		return productRepository.findOne(example);
+	}
 
 	@Override
 	public Page<Product> findAll(Pageable pageable) {
@@ -68,6 +86,26 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
+	public <S extends Product> Page<S> findAll(Example<S> example, Pageable pageable) {
+		return productRepository.findAll(example, pageable);
+	}
+
+	@Override
+	public void deleteInBatch(Iterable<Product> entities) {
+		productRepository.deleteInBatch(entities);
+	}
+
+	@Override
+	public <S extends Product> long count(Example<S> example) {
+		return productRepository.count(example);
+	}
+
+	@Override
+	public <S extends Product> boolean exists(Example<S> example) {
+		return productRepository.exists(example);
+	}
+
+	@Override
 	public void deleteAllInBatch(Iterable<Product> entities) {
 		productRepository.deleteAllInBatch(entities);
 	}
@@ -103,6 +141,11 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
+	public Product getOne(Long id) {
+		return productRepository.getOne(id);
+	}
+
+	@Override
 	public void deleteAll(Iterable<? extends Product> entities) {
 		productRepository.deleteAll(entities);
 	}
@@ -118,6 +161,16 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
+	public <S extends Product> List<S> findAll(Example<S> example) {
+		return productRepository.findAll(example);
+	}
+
+	@Override
+	public <S extends Product> List<S> findAll(Example<S> example, Sort sort) {
+		return productRepository.findAll(example, sort);
+	}
+
+	@Override
 	public List<Product> findByProductnameContaining(String productname) {
 		return productRepository.findByProductnameContaining(productname);
 	}
@@ -127,9 +180,6 @@ public class ProductServiceImpl implements ProductService{
 		return productRepository.findByProductnameContaining(productname, pageable);
 	}
 
-	@Override
-	public <S extends Product> S save(S entity) {
-		 return productRepository.save(entity);
-	}
+	
 		
 }

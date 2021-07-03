@@ -19,6 +19,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 
 		//@Query("SELECT c FROM Category c WHERE c.category_name like ?1%")
 		Page<Product> findByProductnameContaining(String productname, Pageable pageable);
-
-	
+		
 }

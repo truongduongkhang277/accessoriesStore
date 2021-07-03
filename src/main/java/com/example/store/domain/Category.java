@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
@@ -31,7 +32,8 @@ public class Category implements Serializable{
 	private String categoryname;
 	
 	// khi xóa cate, prod thuộc cate cũng được xóa theo
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)	
+	@ToString.Exclude
 	private Set<Product> products;
 	
 }

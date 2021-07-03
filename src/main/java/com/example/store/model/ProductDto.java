@@ -2,6 +2,9 @@ package com.example.store.model;
 
 import java.sql.Date;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -15,6 +18,7 @@ public class ProductDto {
 
 	private Long product_id;
 
+	@NotEmpty
 	private String productname;
 
 	private int quantity;

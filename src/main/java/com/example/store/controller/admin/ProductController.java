@@ -116,19 +116,19 @@ public class ProductController {
 
 		}	
 		productService.save(entity);
-
+		
 		model.addAttribute("message", "Product is saved !");
 
 		return new ModelAndView("redirect:/admin/products", model);
-	}
+	}			
 
 	@GetMapping("")
 	public String list(ModelMap model) {
 		// tìm các categories đang có
-		//List<Product> list = productService.findAll();
+		List<Product> list = productService.findAll();
 		// thiết lập thuộc tính cho model
-		//model.addAttribute("products", list);
-
+		model.addAttribute("products", list);
+		
 		return "admin/products/list";
 	}
 
@@ -141,7 +141,7 @@ public class ProductController {
 		// kiểm tra xem có dữ liệu truyền vào từ người dùng
 		if(StringUtils.hasText(productname)) {
 			// truyền dữ liệu vào danh sách bằng findByNameContaining
-			list = productService.findByProductnameContaining(productname);
+			//list = productService.findByProductnameContaining(productname);
 		} else {
 			// nếu không thì hiển thị tất cả
 			list = productService.findAll();
@@ -150,63 +150,6 @@ public class ProductController {
 		model.addAttribute("products", list);
 		
 		return "admin/products/search"; 
-	}
-	
-	@GetMapping("searchPaginated")
-	public String search(ModelMap model,
-			@RequestParam(name = "productname", required = false) String productname,
-			@RequestParam(name = "page") Optional<Integer> page,
-			@RequestParam(name = "size") Optional<Integer> size) {
-		
-		// mặc định trang đầu là 1
-		int currentPage = page.orElse(1);
-		
-		// mặc định số lượng phần tử trong trang là 5
-		int pageSize = size.orElse(5);
-		
-		// tạo đối tượng chứ trang, số lượng và sắp xếp theo thuộc tính gì
-		// mặc định sắp xếp theo cate_id
-		Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
-		// sắp xếp theo cate_name
-		//Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("productname"));
-		Page<Product> resultPage = null; 
-		
-		// kiểm tra xem có dữ liệu truyền 
-		if(StringUtils.hasText(productname)) {
-			// truyền dữ liệu vào danh sách bằng findByNameContaining
-			resultPage = productService.findByProductnameContaining(productname, pageable);
-			model.addAttribute("productname", productname);
-		} else {
-			// nếu không thì hiển thị tất cả
-			resultPage = productService.findAll(pageable);
-		}
-		// tính toán số trang hiển thị điều hướng
-		int totalPages = resultPage.getTotalPages();
-		
-		if(totalPages > 0) {
-			// 1 2 3 4 5
-			int start = Math.max(1, currentPage - 2);
-			int end = Math.min(currentPage + 2, totalPages);
-			// 1 2 3 4 5 6 7
-			if(totalPages > 5 ) {
-				// 3 4 5 6 7 8
-				if(end == totalPages) {
-					start = end - 5;
-				} 
-				// 1 2 3 4 5 6
-				else if (start == 1) {
-					end = start + 5;
-				}
-			}
-			// 1 2 3 4 5, 5 6 7 8 9, ...
-			List<Integer> pageNumbers = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
-			
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-		
-		model.addAttribute("productPage", resultPage);
-		
-		return "admin/products/searchPaginated"; 
 	}
 
 	@GetMapping("delete/{product_id}")
