@@ -20,19 +20,22 @@ layout:decorate="~{admin/dashboardLayout.html}" >
                                         <label for="product_id">Product Id</label>
                                         <input type="text" class="form-control" name="product_id" id="product_id" th:field="*{product_id}"
                                         aria-describedby="product_id_Hid" placeholder="Product Id" readonly>
-                                        <small id="product_id_Hid" class="form-text text-muted">Product Id is required</small>
+                                        <small id="product_id_Hid" th:if="${#fields.hasErrors('product_id')}"
+                                         class="form-text text-muted">Product Id is required</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="productname">Product Name</label>
                                         <input type="text" class="form-control" name="productname" id="productname" th:field="*{productname}"
                                         aria-describedby="productname_Hid" placeholder="Product Name">
-                                        <small id="productname_Hid" class="form-text text-muted">Product Name is required</small>
+                                        <small id="productname_Hid" th:if="${#fields.hasErrors('productname')}"
+                                        class="form-text text-muted">Product Name is required</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="quantity">Quantity</label>
                                         <input type="text" class="form-control" name="quantity" id="quantity" th:field="*{quantity}"
                                         aria-describedby="quantityHid" placeholder="Quantity">
-                                        <small id="quantityHid" class="form-text text-muted">Quantity is required</small>
+                                        <small id="quantityHid" th:if="${#fields.hasErrors('quantity')}"
+                                        class="form-text text-muted">Quantity is required</small>
                                     </div>
                                     <div class="input-group form-group">
                                         <span class="input-group-text">Unit Price</span>

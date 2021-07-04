@@ -11,24 +11,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountDto {
+public class AdminLoginDto {
 
 	@NotEmpty
-	@Length(min = 6)
 	private String username;
 
 	@NotEmpty
-	@Length(min = 6)
 	private String password;
 	
-	private boolean is_edit = false;
+	private boolean rememberMe = false;
 
-	public boolean isIs_edit() {
-		return is_edit;
+	public boolean isRememberMe() {
+		return rememberMe;
 	}
 
-	public void setIs_edit(boolean is_edit) {
-		this.is_edit = is_edit;
+	public void setRememberMe(boolean rememberMe) {
+		this.rememberMe = rememberMe;
 	}
 
 }

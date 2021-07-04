@@ -80,8 +80,6 @@ public class CategoryController {
 		Category entity = new Category();
 		// copy dữ liệu từ dto sang entity
 		BeanUtils.copyProperties(categoryDto, entity);
-		System.out.println(categoryDto);
-		System.out.println(entity);
 		categoryService.save(entity);
 
 		model.addAttribute("message", "Category is saved !");
