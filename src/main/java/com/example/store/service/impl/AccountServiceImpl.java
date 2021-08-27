@@ -14,7 +14,6 @@ import org.springframework.util.StringUtils;
 
 import com.example.store.domain.Account;
 import com.example.store.repository.AccountRepository;
-import com.example.store.repository.CategoryRepository;
 import com.example.store.service.AccountService;
 
 @Service

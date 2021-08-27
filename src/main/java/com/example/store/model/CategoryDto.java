@@ -2,7 +2,6 @@ package com.example.store.model;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;

@@ -9,9 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.store.domain.Category;
 import com.example.store.domain.Product;
-import com.example.store.repository.CategoryRepository;
 import com.example.store.repository.ProductRepository;
 import com.example.store.service.ProductService;
 
